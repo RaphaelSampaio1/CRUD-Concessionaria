@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRUD</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css"
+    integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+</head>
+<body>
+    <div class="col-8 m-auto pt-2 pb-2 text-center">
+        <h1>Concessionaria</h1>
+    </div>
+    <h1></h1>
+
+
+    <div class="col-8 m-auto pt-4 pb-2 text-center">
+        <a href="/form" class="btn btn-success">Adicionar</a>
+    </div>
+
+    <h1></h1>
+    <div class="col-8 m-auto pt-4 pb-2 text-center">
+        <form method="get">
+          <input type="text" id="search" name="search" class="form-control" placeholder="Buscar">
+        </form>
+    </div>
+    <h1></h1>
+
+    <div class="col-8 m-auto pt-4 pb-2 text-center">
+        <table class="table table-dark">
+            <thead>
+              <tr>
+                <th scope="col" style="text-align: center;">Indice</th>
+                <th scope="col" style="text-align: center;">Modelo</th>
+                <th scope="col" style="text-align: center;">Marca</th>
+                <th scope="col" style="text-align: center;">Ano</th>
+                <th scope="col" style="text-align: center;">Ações</th>
+              </tr>
+            </thead>
+            <tbody>
+            {% for dbs in db %}
+            <tr>
+              <th>{{dbs.id}}</th>
+              <td>{{dbs.modelo}}</td>
+              <td>{{dbs.marca}}</td>
+              <td>{{dbs.ano}}</td>
+              <td>
+                <a href="/view/{{dbs.id}}/" class="btn btn-info">Visualizar</a>
+                <a href="/edit/{{dbs.id}}" class="btn btn-primary">Editar</a>
+                <a href="/delete/{{dbs.id}}" class="btn btn-danger btnDel">Deletar</a>
+              </td>
+            </tr>
+              {% endfor %}
+              </tr>
+            </tbody>
+          </table>
+    </div>
+
+    {% load static %}
+    <script src="{% static 'javascript.js' %}"></script>
+
+    <div class="pagination">
+      {% if db.has_previous %}
+        <a href="?page={{db.previous_page_number}}"> < </a>
+      {% endif %}
+
+      {{db.number}}
+
+      {% if db.has_next %}
+        <a href="?page={{db.next_page_number}}"> > </a>
+      {% endif %}
+    </div>
+
+</body>
+</html>
